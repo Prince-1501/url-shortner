@@ -1,3 +1,5 @@
+<img width="1303" alt="Screenshot 2024-04-26 at 9 19 48 AM" src="https://github.com/Prince-1501/url-shortner/assets/37762770/a97137c1-c4b9-4266-843b-b98e0edac128">
+
 # URL Shortener
 
 A simple URL shortening service built in Go.
