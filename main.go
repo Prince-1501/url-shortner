@@ -47,7 +47,11 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello there welcome to the shotner api"))
+		if r.URL.Path == "/" {
+			w.Write([]byte("Hello there, welcome to the shortener api"))
+		} else {
+			w.Write([]byte("Sorry this route doesn't exists available routes: \n / \n POST /short\n /url/{id}"))
+		}
 	})
 
 	mux.HandleFunc("/url/{id}", func(w http.ResponseWriter, r *http.Request) {
@@ -78,6 +82,14 @@ func main() {
 		json.NewEncoder(w).Encode(&response)
 	})
 
+	s := http.Server{
+		Addr:              ":8080",
+		Handler:           mux,
+		ReadTimeout:       10 * time.Second,
+		WriteTimeout:      10 * time.Second,
+		ReadHeaderTimeout: 10 * time.Second,
+	}
+
 	fmt.Println("Server started on port :8080")
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	log.Fatal(s.ListenAndServe())
 }
